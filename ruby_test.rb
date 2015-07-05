@@ -1,14 +1,27 @@
-class Man
-  attr_accessor :name
-  
-  def initialize(name)
-    @name = name
+class Robot
+  attr_reader :x,:y
+  def initialize
+    @x=0
+    @y=0
+    
   end
   
-  def greet
-    p "Hi,my name is #{name}. Nice to meet you."  
+  def job
+    x0,y0 = x, y
+    yield(self)
+    puts "(#{x0},#{y0}) => (#{x},#{y})"
+  end
+  
+  def move(d1,d2)
+    @x += d1
+    @y += d2
   end
 end
 
-mike = Man.new("mike")
-mike.greet
+robot=Robot.new
+
+robot.job do |r|
+  r.move(1,0)
+  r.move(1,1)
+  r.move(0,-3)
+end
